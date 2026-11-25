@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AmpliconDesk · 16S 扩增子分析</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
+             stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="10" cy="10" r="7.4"/>
+          <circle cx="10" cy="10" r="3.1" fill="currentColor" stroke="none"/>
+          <path d="M10 2.6v2.2M10 15.2v2.2M2.6 10h2.2M15.2 10h2.2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">AmpliconDesk</div>
+        <div class="brand-sub">16S / 18S / ITS 扩增子 · 下游分析与出图<span class="ver" id="ver"></span></div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="pill" id="platformPill">本地运行</span>
+      <button class="btn ghost" id="btnHistory">历史记录</button>
+      <button class="btn ghost" id="btnDemo">载入演示数据</button>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+
+  <aside class="rail">
+    <nav class="steps" id="steps" aria-label="分析步骤">
+      <div class="step active" data-step="1"><span class="n">01</span><span class="t">选择数据</span></div>
+      <div class="step" data-step="2"><span class="n">02</span><span class="t">设置分组</span></div>
+      <div class="step" data-step="3"><span class="n">03</span><span class="t">分析内容</span></div>
+      <div class="step" data-step="4"><span class="n">04</span><span class="t">绘图样式</span></div>
+      <div class="step" data-step="5"><span class="n">05</span><span class="t">运行分析</span></div>
+      <div class="step" data-step="6"><span class="n">06</span><span class="t">查看结果</span></div>
+    </nav>
+    <div class="rail-foot">
+      <div><b>数据不出本机</b></div>
+      <div>服务仅监听 127.0.0.1</div>
+      <div>全程离线计算</div>
+    </div>
+  </aside>
+
+  <main class="wrap">
+
+  <!-- ============ Step 1 数据 ============ -->
+  <section class="panel" data-panel="1">
+    <h2><span class="idx">01</span>选择数据文件</h2>
+    <p class="hint">支持 CSV / TSV / TXT / Excel。丰度表方向（行=特征 或 行=样本）会自动识别，无需手动转置。</p>
+
+    <div class="grid3">
+      <div class="dropzone" data-kind="abundance">
+        <input type="file" hidden accept=".csv,.tsv,.txt,.xlsx,.xls,.xlsm">
+        <div class="dz-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><rect x="3" y="4.5" width="18" height="15"/><path d="M3 9.5h18M3 14.5h18M9 4.5v15M15 4.5v15"/></svg></div>
+        <div class="dz-title">丰度 / 表达表 <span class="req">必填</span></div>
+        <div class="dz-desc">OTU/ASV 表、物种表、基因表达计数表<br>行=特征、列=样本（或反之）</div>
+        <div class="dz-file"></div>
+      </div>
+
+      <div class="dropzone" data-kind="metadata">
+        <input type="file" hidden accept=".csv,.tsv,.txt,.xlsx,.xls,.xlsm">
+        <div class="dz-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M4 6.5h11M4 12h11M4 17.5h7"/><circle cx="19" cy="17.5" r="2.2"/></svg></div>
+        <div class="dz-title">分组表 <span class="req">必填</span></div>
+        <div class="dz-desc">首列=样本名，其余列=分组变量<br>也可以直接在下方粘贴</div>
+        <div class="dz-file"></div>
+      </div>
+
+      <div class="dropzone" data-kind="taxonomy">
+        <input type="file" hidden accept=".csv,.tsv,.txt,.xlsx,.xls,.xlsm">
+        <div class="dz-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><rect x="9" y="3" width="6" height="4"/><rect x="3" y="16.5" width="6" height="4"/><rect x="15" y="16.5" width="6" height="4"/><path d="M12 7v4M6 16.5V13h12v3.5M12 11v2"/></svg></div>
+        <div class="dz-title">分类注释表 <span class="opt">可选</span></div>
+        <div class="dz-desc">Kingdom…Species 多列，或单列<br>分号分隔的 taxonomy 字符串</div>
+        <div class="dz-file"></div>
+      </div>
+
+      <div class="dropzone" data-kind="env">
+        <input type="file" hidden accept=".csv,.tsv,.txt,.xlsx,.xls,.xlsm">
+        <div class="dz-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M3.5 19.5V5M3.5 19.5h17"/><path d="M7 15.5l3.6-4.4 2.9 2.6L20 7.5"/></svg></div>
+        <div class="dz-title">环境因子表 <span class="opt">可选</span></div>
+        <div class="dz-desc">样本 × 环境/理化变量<br>启用 RDA / CCA / db-RDA / envfit / Mantel</div>
+        <div class="dz-file"></div>
+      </div>
+    </div>
+
+    <div class="paste-box">
+      <div class="paste-head">
+        <strong>没有单独的分组表？直接粘贴分组</strong>
+        <span class="muted">第一行表头，之后每行 <code>样本名 分组</code>，用空格、Tab 或逗号分隔</span>
+      </div>
+      <textarea id="pasteMeta" rows="5" placeholder="Sample&#9;Group
+A01&#9;Control
+A02&#9;Control
+B01&#9;Treatment
+B02&#9;Treatment"></textarea>
+      <div class="paste-actions">
+        <button class="btn primary small" id="btnUsePaste">使用这段分组</button>
+        <span class="muted" id="pasteStatus"></span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn ghost" id="btnQuickRun" title="用全部默认设置直接跑完整分析，不需要再逐项配置">
+        一键出图（全套默认）
+      </button>
+      <button class="btn primary" id="btnInspect" disabled>下一步：检查数据</button>
+    </div>
+  </section>
+
+  <!-- ============ Step 2 分组 ============ -->
+  <section class="panel hidden" data-panel="2">
+    <h2><span class="idx">02</span>设置分组</h2>
+    <div id="inspectBox" class="inspect-box"></div>
+
+    <div class="field-row">
+      <label>分组列</label>
+      <select id="groupColumn"></select>
+    </div>
+
+    <div id="groupPreview" class="group-preview"></div>
+
+    <div class="field-row">
+      <label>比较组 <span class="muted small">（留空 = 自动两两比较）</span></label>
+      <div id="comparePairs" class="pairs"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn ghost" data-goto="1">上一步</button>
+      <button class="btn primary" data-goto="3">下一步：分析内容</button>
+    </div>
+  </section>
+
+  <!-- ============ Step 3 分析内容 ============ -->
+  <section class="panel hidden" data-panel="3">
+    <h2><span class="idx">03</span>分析内容</h2>
+    <p class="hint">
+      默认已勾选全部模块，直接点「开始分析」即可。也可以先用下面的快捷预设，
+      或者只取消不需要的模块来加快速度。
+    </p>
+
+    <div class="quick-presets">
+      <span class="muted small">快捷预设：</span>
+      <button class="btn small" data-preset="simple">精简（多样性与组成）</button>
+      <button class="btn small" data-preset="standard">标准（推荐）</button>
+      <button class="btn small primary" data-preset="full">全量（60 图）</button>
+      <button class="btn small" data-preset="diff">侧重差异分析</button>
+      <button class="btn small" data-preset="ordination">侧重排序分析</button>
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label>数据类型</label>
+        <div class="fixed-type">16S / 18S / ITS 扩增子 OTU·ASV 表</div>
+        <div class="tip" id="analysisNote"></div>
+      </div>
+      <div class="field">
+        <label>组成图分类级</label>
+        <select id="rankSelect"><option value="">自动（推荐）</option></select>
+        <div class="tip">仅当提供了分类注释表时生效。</div>
+      </div>
+    </div>
+
+    <fieldset>
+      <legend>基础模块</legend>
+      <div class="checks checks-grid">
+        <label class="switch"><input type="checkbox" id="runAlpha" checked><span>Alpha 多样性</span></label>
+        <label class="switch"><input type="checkbox" id="runBeta" checked><span>Beta 多样性</span></label>
+        <label class="switch"><input type="checkbox" id="runOrd" checked><span>排序分析</span></label>
+        <label class="switch"><input type="checkbox" id="runMulti" checked><span>多元统计检验</span></label>
+        <label class="switch"><input type="checkbox" id="runWithin" checked><span>组内差异分析</span></label>
+        <label class="switch"><input type="checkbox" id="runComp" checked><span>群落组成</span></label>
+        <label class="switch"><input type="checkbox" id="runDiff" checked><span>差异分析</span></label>
+        <label class="switch"><input type="checkbox" id="runLda" checked><span>LDA 效应量</span></label>
+        <label class="switch"><input type="checkbox" id="runRf" checked><span>随机森林 / ROC</span></label>
+        <label class="switch"><input type="checkbox" id="runAdv" checked><span>高级图形</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>排序分析（可多选）</legend>
+      <div id="ordChecks" class="checks checks-grid"></div>
+      <div class="grid3" style="margin-top:14px">
+        <div class="field">
+          <label>排序数据变换</label>
+          <select id="ordTransform">
+            <option value="clr">CLR 中心化对数比（推荐）</option>
+            <option value="hellinger">Hellinger</option>
+            <option value="logcpm">log2-CPM</option>
+            <option value="relative">相对丰度</option>
+            <option value="none">不变换</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>约束排序距离指标</label>
+          <select id="ordMetric"></select>
+          <div class="tip">用于 db-RDA / CAP</div>
+        </div>
+        <div class="field">
+          <label>UMAP 邻域 / 最小距离</label>
+          <div class="inline">
+            <input type="number" id="umapNeighbors" value="15" min="2" max="100" step="1">
+            <input type="number" id="umapMinDist" value="0.1" min="0" max="0.99" step="0.05">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>多元统计检验（可多选）</legend>
+      <div id="statChecks" class="checks checks-grid"></div>
+      <div class="tip" style="margin-top:8px">Mantel 与 envfit 需要额外提供环境因子表（或用分组自动构造）。</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>多样性设置</legend>
+      <div class="grid3">
+        <div class="field">
+          <label>Beta 距离指标</label>
+          <div id="betaMetrics" class="checks"></div>
+        </div>
+        <div class="field">
+          <label>抽平</label>
+          <label class="switch"><input type="checkbox" id="rarefy"> <span>抽平到统一步数</span></label>
+          <div class="tip">可减少测序深度差异带来的偏差，但会损失部分数据</div>
+        </div>
+        <div class="field">
+          <label>置换检验次数</label>
+          <input type="number" id="perms" value="999" min="99" max="9999" step="100">
+          <div class="tip">PERMANOVA / ANOSIM / MRPP / PERMDISP 的置换次数</div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>统计检验</legend>
+      <div class="grid3">
+        <div class="field">
+          <label>组间比较方法</label>
+          <select id="hypMethod"></select>
+          <div class="tip">
+            默认「自动判断」：先做 Shapiro-Wilk 正态性检验与 Levene 方差齐性检验，
+            再据此自动选择 t / Welch / Wilcoxon / ANOVA / Kruskal-Wallis，
+            并把选择理由写进结论与 <code>hypothesis_tests.csv</code>。
+          </div>
+        </div>
+        <div class="field">
+          <label>多重比较校正</label>
+          <select id="pAdjust">
+            <option value="bh">BH (Benjamini-Hochberg, FDR)</option>
+            <option value="bonferroni">Bonferroni</option>
+            <option value="holm">Holm</option>
+            <option value="none">不校正</option>
+          </select>
+          <div class="tip">用于差异分析与事后检验的多重检验校正。</div>
+        </div>
+        <div class="field">
+          <label>事后检验</label>
+          <label class="switch"><input type="checkbox" id="posthoc" checked>
+            <span>ANOVA 用 Tukey HSD、Kruskal-Wallis 用 Dunn</span></label>
+          <div class="tip">多组比较时自动执行，并输出两两比较表。</div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>过滤与绘图选项</legend>
+      <div class="grid3">
+        <div class="field">
+          <label>最小丰度计数</label>
+          <input type="number" id="minCount" value="0" min="0" step="1">
+          <div class="tip">在至少 <em>出现率</em> 比例的样本中达到该计数才保留</div>
+        </div>
+        <div class="field">
+          <label>最小出现率</label>
+          <input type="number" id="minPrev" value="0" min="0" max="1" step="0.05">
+          <div class="tip">0~1，例如 0.2 = 至少 20% 的样本中检出</div>
+        </div>
+        <div class="field">
+          <label>最小总丰度占比</label>
+          <input type="number" id="minFrac" value="0" min="0" max="1" step="0.0001">
+          <div class="tip">0~1，例如 0.0001 = 总占比不低于 0.01%</div>
+        </div>
+        <div class="field">
+          <label>组成图 Top N</label>
+          <input type="number" id="topComp" value="10" min="3" max="40" step="1">
+        </div>
+        <div class="field">
+          <label>热图 Top N</label>
+          <input type="number" id="topHeat" value="30" min="5" max="100" step="5">
+        </div>
+        <div class="field">
+          <label>差异特征箱线图数量</label>
+          <input type="number" id="topDiff" value="9" min="1" max="24" step="1">
+        </div>
+        <div class="field">
+          <label>Venn 判定出现率</label>
+          <input type="number" id="vennThreshold" value="0.5" min="0" max="1" step="0.05">
+          <div class="tip">某特征在该组至少这么多比例的样本中检出，才算"存在"</div>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <button class="btn ghost" data-goto="2">上一步</button>
+      <button class="btn primary" data-goto="4">下一步：绘图样式</button>
+    </div>
+  </section>
+
+  <!-- ============ Step 4 绘图样式 ============ -->
+  <section class="panel hidden" data-panel="4">
+    <h2><span class="idx">04</span>绘图样式</h2>
+    <p class="hint">所有设置即时生效并预览。可先选一个预设主题，再逐项微调字体、字号、字重、颜色、位置偏移。</p>
+
+    <div class="style-layout">
+      <div class="style-controls">
+        <div class="style-toolbar">
+          <div class="field" style="margin:0;flex:1">
+            <label>预设主题</label>
+            <select id="stylePreset"></select>
+          </div>
+          <div class="field" style="margin:0;flex:1">
+            <label>编辑范围</label>
+            <select id="styleScope"></select>
+            <div class="tip" id="scopeTip">全局：影响本次分析的所有图</div>
+          </div>
+        </div>
+
+        <div class="style-toolbar">
+          <div class="field" style="margin:0;flex:1">
+            <label>已保存主题</label>
+            <select id="themeSelect"><option value="">（未保存）</option></select>
+          </div>
+          <button class="btn small" id="btnLoadTheme">载入</button>
+          <button class="btn small" id="btnSaveTheme">保存为…</button>
+          <button class="btn small ghost" id="btnResetStyle">恢复默认</button>
+        </div>
+
+        <div class="style-tabs" id="styleTabs"></div>
+        <div class="style-body" id="styleBody"></div>
+      </div>
+
+      <div class="style-preview">
+        <div class="preview-head">
+          <select id="previewFigure"></select>
+          <button class="btn small" id="btnRefreshPreview">刷新</button>
+        </div>
+        <div class="preview-frame" id="previewFrame">
+          <div class="preview-empty">选择数据并点击「刷新」查看效果</div>
+        </div>
+        <div class="preview-caption muted small" id="previewCaption"></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn ghost" data-goto="3">上一步</button>
+      <button class="btn primary" id="btnRun">开始分析</button>
+    </div>
+  </section>
+
+  <!-- ============ Step 5 运行 ============ -->
+  <section class="panel hidden" data-panel="5">
+    <h2><span class="idx">05</span>运行分析</h2>
+    <div class="progress-wrap">
+      <div class="progress"><div class="bar" id="progressBar"></div></div>
+      <div class="progress-meta">
+        <span id="progressStage">准备中…</span>
+        <span id="progressPct">0%</span>
+      </div>
+    </div>
+    <div class="log" id="logBox"></div>
+    <div class="actions">
+      <button class="btn ghost" data-goto="4">返回样式</button>
+      <button class="btn primary hidden" id="btnToResult">查看结果</button>
+    </div>
+  </section>
+
+  <!-- ============ Step 6 结果 ============ -->
+  <section class="panel hidden" data-panel="6">
+    <h2><span class="idx">06</span>分析结果</h2>
+    <div id="narrativeBox"></div>
+    <div id="resultBox"></div>
+    <div class="actions">
+      <button class="btn ghost" id="btnNewRun">再做一次分析</button>
+    </div>
+  </section>
+
+</main>
+
+</div><!-- /.shell -->
+
+<div class="modal hidden" id="historyModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>历史分析记录</h3>
+      <button class="btn ghost small" id="btnCloseHistory">关闭</button>
+    </div>
+    <div id="historyList" class="history-list"></div>
+  </div>
+</div>
+
+<div class="modal hidden" id="saveThemeModal">
+  <div class="modal-box" style="width:min(420px,100%)">
+    <div class="modal-head"><h3>保存样式主题</h3>
+      <button class="btn ghost small" id="btnCancelTheme">取消</button></div>
+    <div style="padding:18px 21px 22px">
+      <label style="font-weight:600;font-size:13px">主题名称</label>
+      <input type="text" id="themeName" placeholder="例如：我的论文配色" style="margin-top:6px">
+      <div class="actions" style="margin-top:18px;padding-top:14px">
+        <button class="btn primary" id="btnConfirmTheme">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast hidden" id="toast"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

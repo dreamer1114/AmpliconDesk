@@ -1,0 +1,42 @@
+# Local Python runtime and virtual environments
+/runtime/
+/.venv/
+/venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Generated or user-specific data
+/output/
+/uploads/
+/themes/
+/preview/*
+!/preview/ui-1-data.png
+!/preview/ui-2-group.png
+!/preview/ui-3-analysis.png
+!/preview/ui-4-style.png
+*.log
+*.bundle
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Editors and operating systems
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini

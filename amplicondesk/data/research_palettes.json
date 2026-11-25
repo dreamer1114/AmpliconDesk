@@ -1,0 +1,286 @@
+{
+  "meta": {
+    "source": "科研配色方案.xlsx",
+    "n_schemes": 22,
+    "description": "用户提供的科研配色方案，可在界面中整套使用或任选其中若干色。"
+  },
+  "schemes": {
+    "方案1": {
+      "name": "方案1",
+      "colors": [
+        "#EFF6FB",
+        "#DEECF7",
+        "#C1DCEF",
+        "#95C9E1",
+        "#68ACDB",
+        "#3F93C1",
+        "#1D72B2",
+        "#074F97",
+        "#EDEEF2",
+        "#F4F0E5",
+        "#F1E3BE"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案2": {
+      "name": "方案2",
+      "colors": [
+        "#7D5BB3",
+        "#B699D6",
+        "#E7DFF2",
+        "#CDE7DF",
+        "#86C1B6",
+        "#4CA1BE",
+        "#2D7A6B"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案3": {
+      "name": "方案3",
+      "colors": [
+        "#FAFFE9",
+        "#F3FDC1",
+        "#F1EA9C",
+        "#EDCD68",
+        "#EAAB42"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案4": {
+      "name": "方案4",
+      "colors": [
+        "#D0A3A0",
+        "#F5B8B0",
+        "#F9D8C4",
+        "#DDE6CD",
+        "#B8D1C8",
+        "#A2C2D2"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案5": {
+      "name": "方案5",
+      "colors": [
+        "#D3EFF7",
+        "#97C6E6",
+        "#CAEAF4",
+        "#FDDFDE",
+        "#F6B7B2",
+        "#EA7B7D"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案6": {
+      "name": "方案6",
+      "colors": [
+        "#F3CCDB",
+        "#E5E5F3",
+        "#A8D1E1",
+        "#62A9C8",
+        "#147EBC"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案7": {
+      "name": "方案7",
+      "colors": [
+        "#7BA1BE",
+        "#C0B9D2",
+        "#87BEA7",
+        "#867C9C",
+        "#EAF3DD",
+        "#FFF7D1",
+        "#F9D5B2",
+        "#E7EAF4",
+        "#E7B4B4"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案8": {
+      "name": "方案8",
+      "colors": [
+        "#D3A799",
+        "#4F87A4",
+        "#9CB9CA",
+        "#BE6C58",
+        "#818081",
+        "#DEDEDE",
+        "#E7E7C3",
+        "#9C7190"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案9": {
+      "name": "方案9",
+      "colors": [
+        "#F4D4DE",
+        "#CEC8E3",
+        "#F1D6C5",
+        "#E0D5F0",
+        "#A8D4A5",
+        "#9C92C5",
+        "#65ABDF",
+        "#E26986"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案10": {
+      "name": "方案10",
+      "colors": [
+        "#ACE0CF",
+        "#8EBCDB",
+        "#A79FCE",
+        "#FE9F69",
+        "#FEC080"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案11": {
+      "name": "方案11",
+      "colors": [
+        "#81C9D3",
+        "#A0CBEB",
+        "#A9D6B2",
+        "#6CA874",
+        "#F496A5",
+        "#E24D58",
+        "#AF8CD7",
+        "#FDB042",
+        "#969696",
+        "#3C3C3C"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案12": {
+      "name": "方案12",
+      "colors": [
+        "#F9CAA8",
+        "#81CEE4",
+        "#979BCC",
+        "#AECE22",
+        "#F4A468",
+        "#2C9DD9",
+        "#EA7479",
+        "#DEEBF6",
+        "#22EDD9",
+        "#2E6D86"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案13": {
+      "name": "方案13",
+      "colors": [
+        "#90A4C5",
+        "#93B0DA",
+        "#BFD8EC",
+        "#DBDCEE",
+        "#F5C8B5"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案14": {
+      "name": "方案14",
+      "colors": [
+        "#81AFD4",
+        "#C4E0E8",
+        "#DE7C7D",
+        "#FBCFBB"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案15": {
+      "name": "方案15",
+      "colors": [
+        "#4F587D",
+        "#C68DC0",
+        "#C2E0EE",
+        "#776B97",
+        "#DBC8ED"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案16": {
+      "name": "方案16",
+      "colors": [
+        "#5271AE",
+        "#70ACDE",
+        "#F5CC7D",
+        "#FFA660",
+        "#D85B59"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案17": {
+      "name": "方案17",
+      "colors": [
+        "#DBA3B4",
+        "#ACD1BE",
+        "#D3B0DE",
+        "#A7B8DB"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案18": {
+      "name": "方案18",
+      "colors": [
+        "#8D9FCD",
+        "#62BE9F",
+        "#DBE1EC",
+        "#D0EEE4"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案19": {
+      "name": "方案19",
+      "colors": [
+        "#F4C7C7",
+        "#E6ECF2",
+        "#E57373",
+        "#F29A8E",
+        "#7FB3B0",
+        "#FFF1D6"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案20": {
+      "name": "方案20",
+      "colors": [
+        "#FDC0E1",
+        "#FECEE6",
+        "#FFEEF5",
+        "#C4DFFC",
+        "#9ECAFE",
+        "#91B0FD"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案21": {
+      "name": "方案21",
+      "colors": [
+        "#E7E9EF",
+        "#8DC4D9",
+        "#DA6D6D",
+        "#045B98",
+        "#F1D492"
+      ],
+      "source_sheet": "Sheet1"
+    },
+    "方案22": {
+      "name": "方案22",
+      "colors": [
+        "#3D4F6B",
+        "#C79BD6",
+        "#BDE5F6",
+        "#A69CC6",
+        "#D8C6F1",
+        "#5BBFF9",
+        "#2F68D6",
+        "#FFE08A",
+        "#FFB366",
+        "#FF7A7A",
+        "#9ED7F5"
+      ],
+      "source_sheet": "Sheet1"
+    }
+  }
+}
